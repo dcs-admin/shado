@@ -10,10 +10,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.shado.server.model.SransUser;
+import com.shado.server.model.Register;
 import com.shado.server.model.User;
 import com.shado.server.repository.UserRepository;
 
@@ -27,13 +26,13 @@ public class UserService implements UserDetailsService {
 	private UserRepository userRepository; 
 
 	@Override
-	public SransUser loadUserByUsername(final String username) throws UsernameNotFoundException {
+	public Register loadUserByUsername(final String username) throws UsernameNotFoundException {
 
 		try {
 			
 			System.out.println("Login For: "+username);
 
-			SransUser sransUser = null;
+			Register register = null;
 			Collection<GrantedAuthority> grantedAuthoritiesList = new ArrayList<>();
 			Optional<User> user = userRepository.findByUserName(username);
 
@@ -42,10 +41,9 @@ public class UserService implements UserDetailsService {
 				GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + tmpUser.getRole());
 				grantedAuthoritiesList.add(grantedAuthority);
 				
-				sransUser = new SransUser(tmpUser.getUsername(), tmpUser.getPassword(), grantedAuthoritiesList);
-				  
-				 
-				return sransUser;
+				register = new Register(tmpUser.getUsername(), tmpUser.getPassword(), grantedAuthoritiesList);
+				   
+				return register;
 			}
 
 		} catch (Exception e) {

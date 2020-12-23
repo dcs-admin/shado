@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.srans.uaa.domain.Subscription;
 import com.srans.uaa.domain.User;
 import com.srans.uaa.domain.UserSubscription;
 import com.srans.uaa.oauth2service.SubscriptionService;

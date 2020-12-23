@@ -7,48 +7,27 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shado.server.model.User;
-import com.shado.server.model.UserSubscription;
-import com.shado.server.oauth2service.SubscriptionService;
 import com.shado.server.oauth2service.UserService;
-import com.shado.server.util.SecurityCheck;
 
 @RestController
-public class UserSubscriptionController {
+public class TestController {
 	
 	@Autowired
-	private UserService userService;
-	
-	@Autowired
-	private SubscriptionService subscriptionService;
-	
-	@Autowired
-	private SecurityCheck securityCheck;
-	
+	private UserService userService;  
 
-    @GetMapping("/user/me")
+	@GetMapping("/whoami")
     @PreAuthorize("permitAll()")
-    public AuthenticationPrincipal user(AuthenticationPrincipal principal) {
-        return principal;
+    public Object user(Authentication principal) {
+        return principal.getPrincipal();
     }
-    
-    @PostMapping("/v1/users")
-    public ResponseEntity<UserSubscription> addUserWithSubscription(@RequestBody UserSubscription userSubscription) {
-    	
-    	UserSubscription userSubscriptionNew =  new UserSubscription();
-    	//userSubscriptionNew.setUser(userService.save(userSubscription.getUser()));
-    	//userSubscriptionNew.setSubscription(subscriptionService.save(userSubscription.getSubscription()));
-    	
-    	return new ResponseEntity<UserSubscription>(userSubscriptionNew, new HttpHeaders(), HttpStatus.OK);
-    }
+   
     
     @GetMapping("/v1/users")
     @PreAuthorize("authentication.principal == 'admin'")
