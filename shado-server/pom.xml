@@ -6,11 +6,11 @@
 
 
 	<groupId>com.ram</groupId>
-	<artifactId>shado-server</artifactId>
+	<artifactId>mcare-server</artifactId>
 	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
-	<name>shado-server</name>
+	<name>mcare-server</name>
 	<description>A Server application with java echo system, spring-boot 2.0 and H2/Postgres as metadata</description>
 
 	<parent>
@@ -88,10 +88,11 @@
     <version>1.1.0.RELEASE</version>
 </dependency>
       
-<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-		</dependency>
+  			<dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
 
 
 

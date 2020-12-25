@@ -2,7 +2,6 @@ package com.srans.uaa.oauth2service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,8 +13,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.srans.uaa.domain.Register;
 import com.srans.uaa.domain.SransUser;
-import com.srans.uaa.domain.Subscription;
 import com.srans.uaa.domain.User;
 import com.srans.uaa.repository.SubscriptionRepository;
 import com.srans.uaa.repository.UserRepository;
@@ -39,17 +38,17 @@ public class UserService implements UserDetailsService {
 
 			SransUser sransUser = null;
 			Collection<GrantedAuthority> grantedAuthoritiesList = new ArrayList<>();
-			Optional<User> user = userRepository.findByUserName(username);
+			Optional<Register> user = userRepository.findByUserName(Long.parseLong(username));
 
 			if (user.isPresent()) {
-				User tmpUser = user.get();
+				Register tmpUser = user.get();
 				GrantedAuthority grantedAuthority = new SimpleGrantedAuthority("ROLE_" + tmpUser.getRole());
 				grantedAuthoritiesList.add(grantedAuthority);
 
 				System.out.println("User found: "+tmpUser);
 				//Optional<Subscription> subscriptionOp = subscriptionRepository.findByUserName(tmpUser.getUsername());
 				//if (subscriptionOp.isPresent()) {
-					sransUser = new SransUser(tmpUser.getUsername(), tmpUser.getPassword(), grantedAuthoritiesList);
+					sransUser = new SransUser(tmpUser.getMobileNumber()+"", tmpUser.getPassword(), grantedAuthoritiesList);
 				//	sransUser.setSubscription(subscriptionOp.get());
 					
 					//if(sransUser.getSubscription().getValidTo().compareTo(new Date()) > 1) {
